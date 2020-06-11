@@ -11,9 +11,10 @@ node app.js
 ```
 
 ## Usage
-All possible directories
+User can create a new list by adding it to the URL
 ```
 localhost:3000
 localhost:3000/work
-localhost:3000/about
+localhost:3000/school
+localhost:3000/shopping
 ```
