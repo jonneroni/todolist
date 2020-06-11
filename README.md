@@ -6,14 +6,6 @@ ejs templating
 
 mongoDB database with mongoose in nodeJS
 
-## How to run
-
-Run with node 
-
-```bash
-node app.js
-```
-
 ## Usage
 User can create a new list by adding it to the URL
 ### For e.x.
