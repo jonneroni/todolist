@@ -1,6 +1,8 @@
-# Simple To Do List v1
+# Fully functional todolist
 
-Done while learning ejs templating.
+Done while learning:
+ejs templating
+mongoDB database with mongoose in nodeJS
 
 ## How to run
 
