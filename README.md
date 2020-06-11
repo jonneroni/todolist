@@ -12,6 +12,7 @@ node app.js
 
 ## Usage
 User can create a new list by adding it to the URL
+### For e.x.
 ```
 localhost:3000
 localhost:3000/work
