@@ -1,8 +1,8 @@
 # Fully functional todolist
 
 Done while learning:
-ejs templating
-mongoDB database with mongoose in nodeJS
+'ejs templating
+'mongoDB database with mongoose in nodeJS
 
 ## How to run
 
