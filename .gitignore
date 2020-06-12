@@ -14,7 +14,6 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # Enviromental variables
 .env
 
->>>>>>> 3d7529e93c42b5a981ea7e27b0683111763ac6e7
 # Runtime data
 pids
 *.pid
@@ -53,7 +52,7 @@ web_modules/
 =======
 # TypeScript v1 declaration files
 typings/
->>>>>>> 3d7529e93c42b5a981ea7e27b0683111763ac6e7
+
 
 # TypeScript cache
 *.tsbuildinfo
@@ -95,7 +94,7 @@ out
 
 # Next.js build output
 .next
->>>>>>> 3d7529e93c42b5a981ea7e27b0683111763ac6e7
+
 
 # Nuxt.js build / generate output
 .nuxt
@@ -103,11 +102,9 @@ dist
 
 # Gatsby files
 .cache/
-<<<<<<< HEAD
 # Comment in the public line in if your project uses Gatsby and not Next.js
-=======
+
 # Comment in the public line in if your project uses Gatsby and *not* Next.js
->>>>>>> 3d7529e93c42b5a981ea7e27b0683111763ac6e7
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
@@ -137,4 +134,3 @@ dist
 .yarn/install-state.gz
 .pnp.*
 =======
->>>>>>> 3d7529e93c42b5a981ea7e27b0683111763ac6e7
