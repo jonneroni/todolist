@@ -9,8 +9,6 @@ lerna-debug.log*
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-<<<<<<< HEAD
-=======
 # Enviromental variables
 .env
 
@@ -42,7 +40,6 @@ bower_components
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
-<<<<<<< HEAD
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 =======
@@ -86,7 +83,6 @@ typings/
 # Next.js build output
 .next
 out
-=======
 
 # Next.js build output
 .next
@@ -118,7 +114,6 @@ dist
 
 # TernJS port file
 .tern-port
-<<<<<<< HEAD
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
@@ -129,4 +124,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-=======
