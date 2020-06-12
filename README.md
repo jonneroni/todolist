@@ -6,6 +6,8 @@ ejs templating
 
 mongoDB database with mongoose in nodeJS
 
+# App is running [here](https://kaajis-todolist.herokuapp.com/) 
+
 ## Usage
 User can create a new list by adding it to the URL
 ### For e.x.
