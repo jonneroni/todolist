@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const favicon = require('serve-favicon');
+require('dotenv').config();
 
 const app = express();
 
@@ -12,9 +14,15 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
+app.use(favicon(__dirname + '/public/images/favicon.ico'));
+
+const mongoPW = process.env.MONGO_PASS;
+
+mongoose.set('useFindAndModify', false);
+
 
 // Connect to mongodb database named todolistDB
-mongoose.connect("mongodb://localhost:27017/todolistDB", {
+mongoose.connect("mongodb+srv://admin-jonne:" + mongoPW + "@cluster0-x3oli.mongodb.net/todolistDB?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -41,7 +49,11 @@ const item3 = new Item({
     name: "<-- Hit this to delete an item."
 });
 
-const defaultItems = [item1, item2, item3];
+const item4 = new Item({
+    name: "You can create a new list by adding the name to the URL"
+});
+
+const defaultItems = [item1, item2, item3, item4];
 
 const listSchema = new mongoose.Schema({
     name: String,
@@ -69,82 +81,10 @@ app.get("/", (req, res) => {
                 newListItems: items
             });
         }
-
     });
 
 });
 
-app.post("/", (req, res) => {
-
-    // Get the inputted text from list.ejs with bodyparser
-    const itemName = req.body.nextItem;
-    const listName = req.body.list;
-
-    // Create a new item from the input
-    const item = new Item({
-        name: itemName
-    });
-
-    if (listName === "Today") {
-        // Save the item to the Item(s) collection
-        item.save();
-
-        // Redirect to root in order to display the new saved item
-        res.redirect("/");
-    } else {
-        List.findOne({
-            name: listName
-        }, (err, foundList) => {
-            foundList.items.push(item);
-            foundList.save();
-            res.redirect("/" + listName);
-        });
-    }
-
-
-
-});
-
-// Handle the post req when user ticks the checkbox
-app.post("/delete", (req, res) => {
-
-    // Get the value of the checkbox (item._id)
-    const checkedItemId = req.body.checkbox;
-    const listName = req.body.listName;
-
-    if (listName === "Today") {
-        Item.findByIdAndRemove(checkedItemId, (err) => {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log("Succesfully deleted the item with id:" + checkedItemId);
-                setTimeout(() => {
-                    res.redirect("/");
-                }, 300);
-            }
-        });
-    } else {
-        List.findOneAndUpdate({
-                name: listName
-            }, {
-                $pull: {
-                    items: {
-                        _id: checkedItemId
-                    }
-                }
-            },
-            (err, foundList) => {
-                if (!err) {
-                    setTimeout(() => {
-                        res.redirect("/" + listName);
-                    }, 300);
-                }
-            }
-        )
-    };
-
-
-});
 
 app.get("/:customList", (req, res) => {
 
@@ -153,9 +93,7 @@ app.get("/:customList", (req, res) => {
     List.findOne({
         name: customListName
     }, (err, foundList) => {
-        if (err) {
-            console.log(err);
-        } else {
+        if (!err) {
             if (!foundList) {
                 // Create new list
                 const list = new List({
@@ -171,16 +109,67 @@ app.get("/:customList", (req, res) => {
                     newListItems: foundList.items
                 });
             }
-        };
+        }
     });
 
 })
+
+app.post("/", (req, res) => {
+
+    // Get the inputted text from list.ejs with bodyparser
+    const itemName = req.body.nextItem;
+    const listName = req.body.list;
+
+    // Create a new item from the input
+    const item = new Item({
+        name: itemName
+    });
+
+
+    if (listName === "Today") {
+        // Save the item to the Item(s) collection
+        item.save();
+        // Redirect to root in order to display the new saved item
+        res.redirect("/");
+    } else {
+        List.findOne({name: listName}, (err, foundList) => {
+            foundList.items.push(item);
+            foundList.save();
+            res.redirect("/" + listName);
+        }); 
+    }
+});
+
+// Handle the post req when user ticks the checkbox
+app.post("/delete", (req, res) => {
+
+    // Get the value of the checkbox (item._id)
+    const checkedItemId = req.body.checkbox;
+    const listName = req.body.listName;
+
+    if (listName === "Today") {
+        Item.findByIdAndRemove(checkedItemId, (err) => {
+            if (!err) {
+                console.log("Succesfully deleted the item with id:" + checkedItemId);
+                res.redirect("/");
+            }
+        });
+    } else {
+        List.findOneAndUpdate({
+                name: listName}, {$pull: {items: {_id: checkedItemId}}}, (err, foundList) => {
+                if (!err) {
+                    res.redirect("/" + listName); 
+                }
+            }
+        )
+    };
+});
+
 
 
 app.get("/about", (req, res) => {
     res.render("about");
 });
-
 
 app.listen(3000, function () {
     console.log("Server started on port 3000.");
